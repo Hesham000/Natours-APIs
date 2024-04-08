@@ -8,6 +8,7 @@ const xss = require('xss-clean');
 const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
+const cors = require('cors');
 
 const AppError = require('./utils/appError');
 const globalErrorhandler = require('./controllers/errorController');
@@ -23,6 +24,19 @@ app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 
 // 1) GLOBAL MIDDLEWARES
+//implement cors
+app.use(cors());
+//Access-Control-Allow-Origin *
+// api.natours.com, natours.com
+
+// app.use(
+//   cors({
+//     origin: 'https://natours-apis.onrender.com',
+//   }),
+// );
+
+app.options('*', cors())
+
 // Serving static files
 app.use(express.static(path.join(__dirname, 'public')));
 //set security HTTP headers
@@ -111,7 +125,7 @@ app.use(
   }),
 );
 
-app.use(compression())
+app.use(compression());
 
 //Test middleware
 app.use((req, res, next) => {
@@ -119,27 +133,8 @@ app.use((req, res, next) => {
   // console.log(req.cookies);
   next();
 });
-// app.get('/', (req, res) => {
-//   res
-//     .status(200)
-//     .json({ message: 'HEllo from the server side!', app: 'Natours' }); // res.status() sets the status of the response to 200, which indicates that the request succeeded. The res.send() method sends a response of type 'text/html'.
-// }); //The app.get() method specifies a callback function that will be invoked whenever there is an HTTP GET request with a path ('/') relative to the site root. The callback function takes a request and a response object as arguments, and simply calls res.send() with a string. The string is sent as the response body.
-
-// app.post('/', (req, res) => {
-//   res.send('You can post this endpoint...');
-// });
 
 // 2) ROUTE HANDLERS (controllers)
-
-/*
-// app.get('/api/v1/tours', getAllTours);
-//api/v1/tours/:id -> ? optional para
-//get is to get tours, post is to create a new tour, patch is to update a tour, delete is to delete a tour
-// app.post('/api/v1/tours', createTour);
-// app.get('/api/v1/tours/:id', getTour);
-// app.patch('/api/v1/tours/:id', updateTour);
-// app.delete('/api/v1/tours/:id', deleteTour);
-*/
 
 // 3) ROUTS
 
@@ -163,8 +158,3 @@ app.use(globalErrorhandler);
 //Next define routes, which are the URLs that the API can respond to. For example, the following code defines a route for the home page (/) of the API.
 
 module.exports = app;
-
-//static files with express: files are sitting in our file system that we currently access using all routs
-
-//npm i eslint prettier eslint-config-prettier eslint-plugin-prettier eslint-config-airbnb eslint-plugin-node eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-react --save-dev.
-//all this is for code formatting, it is a dev dependency
