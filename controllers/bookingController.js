@@ -1,5 +1,5 @@
 const Stripe = require('stripe');
-const AppError = require('../utils/appError');
+// const AppError = require('../utils/appError');
 const Tour = require('../models/tourModel');
 const Booking = require('../models/bookingModel');
 const catchAsync = require('../utils/catchAsync');
