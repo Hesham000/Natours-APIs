@@ -633,7 +633,7 @@ if (bookBtn) bookBtn.addEventListener("click", (e)=>{
     (0, _stripeJs.bookTour)(tourId);
 });
 const alertMessage = document.querySelector("body").dataset.alert;
-if (alert) (0, _alertJs.showAlert)("success", alertMessage, 20);
+if (alertMessage) (0, _alertJs.showAlert)("success", alertMessage, 20);
 
 },{"./login.js":"7yHem","./mapbox.js":"3zDlz","./stripe.js":"10tSC","./updateSettings.js":"l3cGY","./alert.js":"kxdiQ"}],"7yHem":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
